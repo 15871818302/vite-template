@@ -4,6 +4,9 @@ import vue from '@vitejs/plugin-vue'
 import vuejsx from '@vitejs/plugin-vue-jsx'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import svgLoader from 'vite-svg-loader'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 export default (configEnv:ConfigEnv):UserConfigExport => {
   // 解析环境变量
@@ -77,7 +80,14 @@ export default (configEnv:ConfigEnv):UserConfigExport => {
         /* process.cwd() 也是寻找文件路径，但是跟__dirname有所不同的是，process.cwd是使用node寻找文件路径的地址，__dirname是寻找当前模块在全局中的位置，在进行打包的时候，process会直接用node启动package.json里面的文件，所以就保证了文件在不同目录下的时候，路径始终不变 */
         iconDirs: [path.resolve(process.cwd())],
         symbolId: 'icon-[dir]-[name]'
-      })
+      }),
+      // element-plus 自动引入配置
+      AutoImport({
+        resolvers: [ElementPlusResolver()],
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()],
+      }),
     ]
   }
 }

@@ -1,7 +1,7 @@
 <template>
-  <ElConfigProvider>
-    <router-view />
-  </ElConfigProvider>
+  <div>
+    111
+  </div>
 </template>
 
 <script lang="ts" setup></script>
